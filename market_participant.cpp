@@ -20,10 +20,14 @@ void save_offer(json offer, string time_step)
 json compute_offer(string rid, float soc, vector<string> times)
 {
   // Write out the lists from offer_utils.py
-  vector<string> offer_keys = {"cost_rgu", "cost_rgd", "cost_spr", "cost_nsp", "block_ch_mc", "block_dc_mc",                   "block_soc_mc", "block_ch_mq", "block_dc_mq", "block_soc_mq", "soc_end",                   "bid_soc", "init_en", "init_status", "ramp_up", "ramp_dn", "socmax", "socmin",                  "soc_begin", "eff_ch", "eff_dc", "chmax", "dcmax"};
+  vector<string> offer_keys = {"cost_rgu", "cost_rgd", "cost_spr", "cost_nsp", "block_ch_mc", "block_dc_mc", 
+                  "block_soc_mc", "block_ch_mq", "block_dc_mq", "block_soc_mq", "soc_end", 
+                  "bid_soc", "init_en", "init_status", "ramp_up", "ramp_dn", "socmax", "socmin",
+                  "soc_begin", "eff_ch", "eff_dc", "chmax", "dcmax"};
   vector<float> offer_vals = {3, 3, 0, 0, 20, 22, 0, 125, 125, 633.33, 133.33, 0, 0, 0, 9999, 9999,
 				633.33, 133.334, soc, 0.9, 1, 125, 125};
-  vector<bool> use_time = {true, true, true, true, true, true, true, true, true, true, false, false, false,                false, false, false, false, false, false, false, false, true, true};
+  vector<bool> use_time = {true, true, true, true, true, true, true, true, true, true, false, false, false,
+                false, false, false, false, false, false, false, false, true, true};
   
   // make a json dictionary
   json offer_out;
@@ -52,8 +56,8 @@ int main(int argc, char** argv)
   json market{json::parse(argv[2])};
   json resource{json::parse(argv[3])};
   vector<string> times;
-  for (auto it = market["intervals"].begin(); it != market["intervals"].end(); it++){
-      times.push_back(it.key());
+  for (auto it = market["timestamps"].begin(); it != market["timestamps"].end(); it++){
+      times.push_back(*it);
   }
 
   string rid;
